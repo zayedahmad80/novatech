@@ -11,12 +11,14 @@ import ReviewsSlider from "@/components/ReviewsSlider";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import LoadingWrapper from "@/components/LoadingWrapper";
+import ParticleBackground from "@/components/ParticleBackground";
 
 export default function Home() {
   return (
     <LoadingWrapper>
       <CustomCursor />
       <ThreeBackground />
+      <ParticleBackground />
       <main className="relative z-10">
         <HeroVideo />
         <Services />

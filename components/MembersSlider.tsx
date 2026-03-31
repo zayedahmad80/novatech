@@ -13,6 +13,7 @@ const members = [
     role: "Lead Developer",
     bio: "Full-stack expert with 8 years experience in modern web technologies",
     image: "👨‍💻",
+    hasImage: false,
   },
   {
     id: 2,
@@ -20,6 +21,7 @@ const members = [
     role: "Creative Director",
     bio: "Visionary designer leading innovative visual solutions",
     image: "🎨",
+    hasImage: false,
   },
   {
     id: 3,
@@ -27,6 +29,7 @@ const members = [
     role: "Video Editor",
     bio: "Cinematic storyteller specializing in motion graphics",
     image: "🎬",
+    hasImage: false,
   },
   {
     id: 4,
@@ -34,6 +37,7 @@ const members = [
     role: "Marketing Strategist",
     bio: "Data-driven marketer with proven campaign success",
     image: "📊",
+    hasImage: false,
   },
 ];
 
@@ -62,9 +66,15 @@ export default function MembersSlider() {
             <SwiperSlide key={member.id}>
               <Link href={`/member/${member.id}`}>
                 <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-8 text-center hover:bg-white/20 transition-all duration-300 cursor-pointer group">
-                  <div className="text-7xl mb-4 group-hover:scale-110 transition-transform duration-300">
-                    {member.image}
-                  </div>
+                  {member.hasImage ? (
+                    <div className="w-32 h-32 mx-auto mb-4 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center text-4xl font-bold text-white group-hover:scale-110 transition-transform duration-300">
+                      {member.name.charAt(0)}
+                    </div>
+                  ) : (
+                    <div className="text-7xl mb-4 group-hover:scale-110 transition-transform duration-300">
+                      {member.image}
+                    </div>
+                  )}
                   <h3 className="text-2xl font-bold mb-2">{member.name}</h3>
                   <p className="text-purple-400 mb-3">{member.role}</p>
                   <p className="text-gray-300 text-sm">{member.bio}</p>
