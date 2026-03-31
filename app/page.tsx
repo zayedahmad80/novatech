@@ -9,6 +9,7 @@ import MembersSlider from "@/components/MembersSlider";
 import Projects from "@/components/Projects";
 import ReviewsSlider from "@/components/ReviewsSlider";
 import Footer from "@/components/Footer";
+import WhatsAppButton from "@/components/WhatsAppButton";
 
 
 export default function Home() {
@@ -16,6 +17,7 @@ export default function Home() {
     <>
       <CustomCursor />
       <ThreeBackground />
+      <WhatsAppButton />
       <main className="relative z-10">
         <HeroVideo />
         <Services />
