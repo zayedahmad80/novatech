@@ -5,6 +5,7 @@ import { Autoplay, Pagination, Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
+import Link from "next/link";
 
 const videos = [
   {
@@ -63,12 +64,14 @@ export default function HeroVideo() {
                   <p className="text-xl md:text-2xl text-white font-medium drop-shadow-md mb-8">
                     {video.desc}
                   </p>
-                  <button 
-                    className="px-8 py-3 rounded-full font-semibold hover:scale-110 transition-all duration-300 shadow-lg"
-                    style={{ backgroundColor: '#9333ea', color: '#ffffff' }}
-                  >
-                    Get Started
-                  </button>
+                 <Link href="/contact">
+                <button 
+                   className="px-8 py-3 rounded-full font-semibold hover:scale-110 transition-all duration-300 shadow-lg"
+                  style={{ backgroundColor: '#9333ea', color: '#ffffff' }}
+                       >
+                     Get Started
+                      </button>
+                   </Link>
                 </div>
               </div>
             </div>
