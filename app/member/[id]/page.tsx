@@ -54,10 +54,10 @@ export default function MemberPage() {
             <p className="text-gray-300 mb-8">{member.email}</p>
             <Link
               href="/"
-              className="inline-block px-8 py-3 bg-white text-black rounded-full font-semibold hover:scale-105 transition-transform"
+             className="inline-block px-8 py-3 bg-purple-600 text-white rounded-full font-semibold hover:bg-purple-500 hover:scale-105 transition-all shadow-lg"
             >
-              Back to Home
-            </Link>
+            Back to Home
+           </Link>
           </div>
         </div>
       </main>
