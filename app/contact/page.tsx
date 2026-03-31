@@ -12,10 +12,30 @@ export default function ContactPage() {
     email: "",
     message: "",
   });
+  const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    alert("Thank you! We'll get back to you soon.");
+    setStatus("sending");
+    
+    // Simulate email sending (replace with actual API endpoint)
+    try {
+      await new Promise(resolve => setTimeout(resolve, 1500));
+      
+      // In production, replace with:
+      // const response = await fetch("/api/contact", {
+      //   method: "POST",
+      //   headers: { "Content-Type": "application/json" },
+      //   body: JSON.stringify(formData),
+      // });
+      
+      setStatus("success");
+      setFormData({ name: "", email: "", message: "" });
+      setTimeout(() => setStatus("idle"), 3000);
+    } catch {
+      setStatus("error");
+      setTimeout(() => setStatus("idle"), 3000);
+    }
   };
 
   return (
@@ -45,7 +65,8 @@ export default function ContactPage() {
                   type="text"
                   placeholder="Your Name"
                   required
-                  className="w-full px-6 py-4 bg-white/10 backdrop-blur-lg rounded-xl text-white placeholder-gray-400 border border-white/20 focus:border-purple-500 focus:outline-none transition-all"
+                  disabled={status === "sending"}
+                  className="w-full px-6 py-4 bg-white/10 backdrop-blur-lg rounded-xl text-white placeholder-gray-400 border border-white/20 focus:border-purple-500 focus:outline-none transition-all disabled:opacity-50"
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                 />
@@ -56,7 +77,8 @@ export default function ContactPage() {
                   type="email"
                   placeholder="Your Email"
                   required
-                  className="w-full px-6 py-4 bg-white/10 backdrop-blur-lg rounded-xl text-white placeholder-gray-400 border border-white/20 focus:border-purple-500 focus:outline-none transition-all"
+                  disabled={status === "sending"}
+                  className="w-full px-6 py-4 bg-white/10 backdrop-blur-lg rounded-xl text-white placeholder-gray-400 border border-white/20 focus:border-purple-500 focus:outline-none transition-all disabled:opacity-50"
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                 />
@@ -67,7 +89,8 @@ export default function ContactPage() {
                   placeholder="Your Message"
                   required
                   rows={5}
-                  className="w-full px-6 py-4 bg-white/10 backdrop-blur-lg rounded-xl text-white placeholder-gray-400 border border-white/20 focus:border-purple-500 focus:outline-none transition-all resize-none"
+                  disabled={status === "sending"}
+                  className="w-full px-6 py-4 bg-white/10 backdrop-blur-lg rounded-xl text-white placeholder-gray-400 border border-white/20 focus:border-purple-500 focus:outline-none transition-all resize-none disabled:opacity-50"
                   value={formData.message}
                   onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                 />
@@ -77,9 +100,13 @@ export default function ContactPage() {
                 whileHover={{ scale: 1.05, boxShadow: "0 0 20px rgba(147, 51, 234, 0.5)" }}
                 whileTap={{ scale: 0.95 }}
                 type="submit"
-                className="w-full py-4 bg-purple-600 text-white rounded-xl font-semibold hover:bg-purple-500 transition-all shadow-lg"
+                disabled={status === "sending"}
+                className="w-full py-4 bg-purple-600 text-white rounded-xl font-semibold hover:bg-purple-500 transition-all shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                Send Message
+                {status === "sending" ? "Sending..." : 
+                 status === "success" ? "✓ Sent!" : 
+                 status === "error" ? "❌ Failed - Try Again" : 
+                 "Send Message"}
               </motion.button>
             </form>
           </motion.div>
