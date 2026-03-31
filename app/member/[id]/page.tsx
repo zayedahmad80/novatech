@@ -3,6 +3,7 @@
 import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import CustomCursor from "@/components/CustomCursor";
+import LoadingWrapper from "@/components/LoadingWrapper";
 
 const membersData = {
   1: { name: "Alex Chen", role: "Lead Developer", bio: "Full-stack expert with 8 years experience in modern web technologies. Specializes in React, Next.js, and Three.js.", image: "👨‍💻", email: "alex@novatech.com" },
@@ -19,7 +20,7 @@ export default function MemberPage() {
 
   if (!member) {
     return (
-      <>
+      <LoadingWrapper>
         <CustomCursor />
         <div className="min-h-screen flex items-center justify-center">
           <div className="text-center">
@@ -29,12 +30,12 @@ export default function MemberPage() {
             </Link>
           </div>
         </div>
-      </>
+      </LoadingWrapper>
     );
   }
 
   return (
-    <>
+    <LoadingWrapper>
       <CustomCursor />
       <main className="min-h-screen relative">
         <div className="fixed top-0 left-0 w-full h-full bg-gradient-to-br from-purple-900 to-blue-900 -z-10" />
@@ -54,13 +55,13 @@ export default function MemberPage() {
             <p className="text-gray-300 mb-8">{member.email}</p>
             <Link
               href="/"
-             className="inline-block px-8 py-3 bg-purple-600 text-white rounded-full font-semibold hover:bg-purple-500 hover:scale-105 transition-all shadow-lg"
+              className="inline-block px-8 py-3 bg-purple-600 text-white rounded-full font-semibold hover:bg-purple-500 hover:scale-105 transition-all shadow-lg"
             >
-            Back to Home
-           </Link>
+              Back to Home
+            </Link>
           </div>
         </div>
       </main>
-    </>
+    </LoadingWrapper>
   );
 }

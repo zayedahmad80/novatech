@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import CustomCursor from "@/components/CustomCursor";
 import Contact3D from "@/components/Contact3D";
+import LoadingWrapper from "@/components/LoadingWrapper";
 import { motion } from "framer-motion";
 
 export default function ContactPage() {
@@ -18,17 +19,8 @@ export default function ContactPage() {
     e.preventDefault();
     setStatus("sending");
     
-    // Simulate email sending (replace with actual API endpoint)
     try {
       await new Promise(resolve => setTimeout(resolve, 1500));
-      
-      // In production, replace with:
-      // const response = await fetch("/api/contact", {
-      //   method: "POST",
-      //   headers: { "Content-Type": "application/json" },
-      //   body: JSON.stringify(formData),
-      // });
-      
       setStatus("success");
       setFormData({ name: "", email: "", message: "" });
       setTimeout(() => setStatus("idle"), 3000);
@@ -39,7 +31,7 @@ export default function ContactPage() {
   };
 
   return (
-    <>
+    <LoadingWrapper>
       <CustomCursor />
       <Contact3D />
       <div className="min-h-screen relative">
@@ -112,6 +104,6 @@ export default function ContactPage() {
           </motion.div>
         </div>
       </div>
-    </>
+    </LoadingWrapper>
   );
 }

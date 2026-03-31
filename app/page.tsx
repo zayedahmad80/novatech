@@ -10,14 +10,13 @@ import Projects from "@/components/Projects";
 import ReviewsSlider from "@/components/ReviewsSlider";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
-
+import LoadingWrapper from "@/components/LoadingWrapper";
 
 export default function Home() {
   return (
-    <>
+    <LoadingWrapper>
       <CustomCursor />
       <ThreeBackground />
-      <WhatsAppButton />
       <main className="relative z-10">
         <HeroVideo />
         <Services />
@@ -26,7 +25,8 @@ export default function Home() {
         <Projects />
         <ReviewsSlider />
         <Footer />
+        <WhatsAppButton />
       </main>
-    </>
+    </LoadingWrapper>
   );
 }
