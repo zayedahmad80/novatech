@@ -6,6 +6,7 @@ import LoadingWrapper from "@/components/LoadingWrapper";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import ParticleBackground from "@/components/ParticleBackground";
 import Navbar from "@/components/Navbar";
+import ChatWidget from "@/components/ChatWidget";
 
 
 // Lazy load heavy components
@@ -34,6 +35,7 @@ export default function Home() {
         <FAQ />
         <Footer />
         <WhatsAppButton />
+        <ChatWidget />
       </main>
     </LoadingWrapper>
   );

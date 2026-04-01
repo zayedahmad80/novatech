@@ -26,24 +26,29 @@ export default function Navbar() {
     }
   };
 
-  const navLinks = [
-    { name: "Home", href: "/", action: "home" },
-    { name: "Services", href: "#services", action: "services" },
-    { name: "Team", href: "#team", action: "team" },
-    { name: "Projects", href: "#projects", action: "projects" },
-    { name: "Contact", href: "/contact", action: "contact" },
-  ];
+ const navLinks = [
+  { name: "Home", href: "/", action: "home" },
+  { name: "Services", href: "#services", action: "services" },
+  { name: "Team", href: "#team", action: "team" },
+  { name: "Projects", href: "#projects", action: "projects" },
+  { name: "Blog", href: "/blog", action: "blog" },
+  { name: "Contact", href: "/contact", action: "contact" },
+];
 
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>, item: typeof navLinks[0]) => {
-    if (item.action === "home") {
-      window.scrollTo({ top: 0, behavior: "smooth" });
-      setIsOpen(false);
-    } else if (item.action === "contact") {
-      // Contact page - normal link
-    } else {
-      scrollToSection(e, item.action);
-    }
-  };
+  if (item.action === "home") {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    setIsOpen(false);
+  } else if (item.action === "blog") {
+    // Blog page - normal link (no scroll)
+    setIsOpen(false);
+  } else if (item.action === "contact") {
+    // Contact page - normal link
+    setIsOpen(false);
+  } else {
+    scrollToSection(e, item.action);
+  }
+};
 
   return (
     <>
