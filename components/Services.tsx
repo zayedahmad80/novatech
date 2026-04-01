@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { useState } from "react";
 import { FaCode, FaVideo, FaPalette, FaChartLine } from "react-icons/fa";
+import Link from "next/link";
 
 const services = [
   {
@@ -165,20 +166,19 @@ export default function Services() {
 
         {/* Bottom CTA */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: 0.6 }}
-          className="text-center mt-16"
-        >
-          <p className="text-gray-400 mb-4">Need a custom solution?</p>
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="px-8 py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-full font-semibold shadow-lg hover:shadow-purple-500/50 transition-all"
-          >
-            Contact Our Team
-          </motion.button>
-        </motion.div>
+        initial={{ opacity: 0, y: 30 }}
+       animate={inView ? { opacity: 1, y: 0 } : {}}
+       transition={{ duration: 0.6, delay: 0.6 }}
+       className="text-center mt-16"
+       >
+       <p className="text-gray-400 mb-4">Need a custom solution?</p>
+      <Link
+      href="/contact"
+      className="inline-block px-8 py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-full font-semibold shadow-lg hover:shadow-purple-500/50 transition-all hover:scale-105"
+      >
+    Contact Our Team
+  </Link>
+</motion.div>
       </div>
     </section>
   );
