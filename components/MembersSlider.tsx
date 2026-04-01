@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { FaLinkedin, FaGithub, FaTwitter } from "react-icons/fa";
 import Link from "next/link";
+import Image from "next/image";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/effect-coverflow";
@@ -16,7 +17,7 @@ const members = [
     name: "Alex Chen",
     role: "Lead Developer",
     bio: "Full-stack expert with 8 years experience in modern web technologies.",
-    image: "👨‍💻",
+    image: "/images/team/alex.jpg",
     gradient: "from-blue-500 to-cyan-500",
     social: { linkedin: "#", github: "#", twitter: "#" },
     expertise: ["React", "Next.js", "Three.js"],
@@ -26,7 +27,7 @@ const members = [
     name: "Sarah Johnson",
     role: "Creative Director",
     bio: "Visionary designer leading innovative visual solutions.",
-    image: "🎨",
+    image: "/images/team/sarah.jpg",
     gradient: "from-pink-500 to-rose-500",
     social: { linkedin: "#", github: "#", twitter: "#" },
     expertise: ["UI/UX", "Branding", "Figma"],
@@ -36,7 +37,7 @@ const members = [
     name: "Mike Rodriguez",
     role: "Video Editor",
     bio: "Cinematic storyteller specializing in motion graphics.",
-    image: "🎬",
+    image: "/images/team/mike.jpg",
     gradient: "from-red-500 to-orange-500",
     social: { linkedin: "#", github: "#", twitter: "#" },
     expertise: ["Premiere Pro", "After Effects", "DaVinci"],
@@ -46,7 +47,7 @@ const members = [
     name: "Emma Watson",
     role: "Marketing Strategist",
     bio: "Data-driven marketer with proven campaign success.",
-    image: "📊",
+    image: "/images/team/emma.jpg",
     gradient: "from-green-500 to-emerald-500",
     social: { linkedin: "#", github: "#", twitter: "#" },
     expertise: ["SEO", "Analytics", "Social Media"],
@@ -100,25 +101,31 @@ export default function MembersSlider() {
               <Link href={`/member/${member.id}`}>
                 <div className="group cursor-pointer bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl rounded-3xl overflow-hidden border border-white/20 shadow-2xl transition-all duration-300 hover:scale-105 hover:-translate-y-2">
                   <div className={`relative bg-gradient-to-br ${member.gradient} p-8 pt-12 text-center`}>
-                    <div className="w-32 h-32 mx-auto rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center text-6xl border-4 border-white/30 shadow-xl transition-transform duration-500 group-hover:rotate-12">
-                      {member.image}
+                    <div className="w-32 h-32 mx-auto rounded-full overflow-hidden border-4 border-white/30 shadow-xl transition-transform duration-500 group-hover:scale-110">
+                      <Image
+                        src={member.image}
+                        alt={member.name}
+                        width={128}
+                        height={128}
+                        className="w-full h-full object-cover"
+                      />
                     </div>
                     <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-3">
                       <button
                         onClick={(e) => openSocial(member.social.linkedin, e)}
-                        className="w-8 h-8 rounded-full bg-white/20 hover:bg-blue-600 flex items-center justify-center text-white transition-all"
+                        className="w-8 h-8 rounded-full bg-black/50 hover:bg-blue-600 flex items-center justify-center text-white transition-all backdrop-blur-sm"
                       >
                         <FaLinkedin size={14} />
                       </button>
                       <button
                         onClick={(e) => openSocial(member.social.github, e)}
-                        className="w-8 h-8 rounded-full bg-white/20 hover:bg-gray-700 flex items-center justify-center text-white transition-all"
+                        className="w-8 h-8 rounded-full bg-black/50 hover:bg-gray-700 flex items-center justify-center text-white transition-all backdrop-blur-sm"
                       >
                         <FaGithub size={14} />
                       </button>
                       <button
                         onClick={(e) => openSocial(member.social.twitter, e)}
-                        className="w-8 h-8 rounded-full bg-white/20 hover:bg-blue-400 flex items-center justify-center text-white transition-all"
+                        className="w-8 h-8 rounded-full bg-black/50 hover:bg-blue-400 flex items-center justify-center text-white transition-all backdrop-blur-sm"
                       >
                         <FaTwitter size={14} />
                       </button>
