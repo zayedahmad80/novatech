@@ -7,6 +7,7 @@ import WhatsAppButton from "@/components/WhatsAppButton";
 import ParticleBackground from "@/components/ParticleBackground";
 import Navbar from "@/components/Navbar";
 
+
 // Lazy load heavy components
 const HeroVideo = dynamic(() => import("@/components/HeroVideo"), { ssr: false });
 const Services = dynamic(() => import("@/components/Services"), { ssr: false });
