@@ -146,7 +146,7 @@ export default function Services() {
                 <div className="p-8 pt-0 mt-auto">
                   <div className="flex items-center justify-between">
                     <div>
-                      <span className="text-xs text-gray-400">Starting at</span>
+                      <span className="text-xs text-gray-400">Starting</span>
                       <p className="text-2xl font-bold text-white">{service.price}</p>
                     </div>
                     <motion.button

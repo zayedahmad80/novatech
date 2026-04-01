@@ -13,6 +13,7 @@ import WhatsAppButton from "@/components/WhatsAppButton";
 import LoadingWrapper from "@/components/LoadingWrapper";
 import ParticleBackground from "@/components/ParticleBackground";
 import Navbar from "@/components/Navbar";
+import FAQ from "@/components/FAQ";
 
 export default function Home() {
   return (
@@ -41,6 +42,7 @@ export default function Home() {
   <Projects />
 </section>
         <ReviewsSlider />
+        <FAQ />
         <Footer />
         <WhatsAppButton />
       </main>
