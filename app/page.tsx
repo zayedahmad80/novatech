@@ -8,6 +8,9 @@ import ParticleBackground from "@/components/ParticleBackground";
 import Navbar from "@/components/Navbar";
 import ChatWidget from "@/components/ChatWidget";
 
+import NewsletterPopup from "@/components/NewsletterPopup";
+
+
 
 // Lazy load heavy components
 const HeroVideo = dynamic(() => import("@/components/HeroVideo"), { ssr: false });
@@ -34,6 +37,7 @@ export default function Home() {
         <ReviewsSlider />
         <FAQ />
         <Footer />
+        <NewsletterPopup />
         <WhatsAppButton />
         <ChatWidget />
       </main>
