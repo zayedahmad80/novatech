@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination, EffectCoverflow } from "swiper/modules";
 import { motion } from "framer-motion";
@@ -11,57 +12,61 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/effect-coverflow";
 
-const members = [
-  {
-    id: 1,
-    name: "Alex Chen",
-    role: "Lead Developer",
-    bio: "Full-stack expert with 8 years experience in modern web technologies.",
-    image: "/images/team/alex.jpg",
-    gradient: "from-blue-500 to-cyan-500",
-    social: { linkedin: "#", github: "#", twitter: "#" },
-    expertise: ["React", "Next.js", "Three.js"],
-  },
-  {
-    id: 2,
-    name: "Sarah Johnson",
-    role: "Creative Director",
-    bio: "Visionary designer leading innovative visual solutions.",
-    image: "/images/team/sarah.jpg",
-    gradient: "from-pink-500 to-rose-500",
-    social: { linkedin: "#", github: "#", twitter: "#" },
-    expertise: ["UI/UX", "Branding", "Figma"],
-  },
-  {
-    id: 3,
-    name: "Mike Rodriguez",
-    role: "Video Editor",
-    bio: "Cinematic storyteller specializing in motion graphics.",
-    image: "/images/team/mike.jpg",
-    gradient: "from-red-500 to-orange-500",
-    social: { linkedin: "#", github: "#", twitter: "#" },
-    expertise: ["Premiere Pro", "After Effects", "DaVinci"],
-  },
-  {
-    id: 4,
-    name: "Emma Watson",
-    role: "Marketing Strategist",
-    bio: "Data-driven marketer with proven campaign success.",
-    image: "/images/team/emma.jpg",
-    gradient: "from-green-500 to-emerald-500",
-    social: { linkedin: "#", github: "#", twitter: "#" },
-    expertise: ["SEO", "Analytics", "Social Media"],
-  },
+interface TeamMember {
+  _id: string;
+  id?: number;
+  name: string;
+  role: string;
+  bio: string;
+  image: string;
+  gradient?: string;
+  social: { linkedin: string; github: string; twitter: string };
+  expertise: string[];
+}
+
+const gradientColors = [
+  "from-blue-500 to-cyan-500",
+  "from-pink-500 to-rose-500",
+  "from-red-500 to-orange-500",
+  "from-green-500 to-emerald-500",
+  "from-purple-500 to-indigo-500",
+  "from-yellow-500 to-amber-500",
 ];
 
 export default function MembersSlider() {
+  const [members, setMembers] = useState<TeamMember[]>([]);
+  const [loading, setLoading] = useState(true);
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 });
+
+  useEffect(() => {
+    fetch('/api/team')
+      .then(res => res.json())
+      .then(data => {
+        setMembers(data);
+        setLoading(false);
+      })
+      .catch(err => {
+        console.error('Failed to fetch team:', err);
+        setLoading(false);
+      });
+  }, []);
 
   const openSocial = (url: string, e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
     if (url && url !== "#") window.open(url, "_blank");
   };
+
+  if (loading) {
+    return (
+      <section className="py-24 px-4 md:px-8 bg-black/30">
+        <div className="max-w-7xl mx-auto text-center">
+          <div className="w-12 h-12 border-4 border-purple-500 border-t-transparent rounded-full animate-spin mx-auto mb-4" />
+          <p className="text-gray-400">Loading team...</p>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className="py-24 px-4 md:px-8 bg-black/30 relative overflow-hidden">
@@ -96,35 +101,39 @@ export default function MembersSlider() {
           loop={false}
           className="pb-16"
         >
-          {members.map((member) => (
-            <SwiperSlide key={member.id}>
-              <Link href={`/member/${member.id}`}>
+          {members.map((member, index) => (
+            <SwiperSlide key={member._id}>
+              <Link href={`/member/${member._id}`}>
                 <div className="group cursor-pointer bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl rounded-3xl overflow-hidden border border-white/20 shadow-2xl transition-all duration-300 hover:scale-105 hover:-translate-y-2">
-                  <div className={`relative bg-gradient-to-br ${member.gradient} p-8 pt-12 text-center`}>
-                    <div className="w-32 h-32 mx-auto rounded-full overflow-hidden border-4 border-white/30 shadow-xl transition-transform duration-500 group-hover:scale-110">
-                      <Image
-                        src={member.image}
-                        alt={member.name}
-                        width={128}
-                        height={128}
-                        className="w-full h-full object-cover"
-                      />
+                  <div className={`relative bg-gradient-to-br ${gradientColors[index % gradientColors.length]} p-8 pt-12 text-center`}>
+                    <div className="w-32 h-32 mx-auto rounded-full overflow-hidden border-4 border-white/30 shadow-xl transition-transform duration-500 group-hover:scale-110 bg-white/20 flex items-center justify-center">
+                      {member.image ? (
+                        <Image
+                          src={member.image}
+                          alt={member.name}
+                          width={128}
+                          height={128}
+                          className="w-full h-full object-cover"
+                        />
+                      ) : (
+                        <span className="text-6xl">{member.name.charAt(0)}</span>
+                      )}
                     </div>
                     <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-3">
                       <button
-                        onClick={(e) => openSocial(member.social.linkedin, e)}
+                        onClick={(e) => openSocial(member.social?.linkedin, e)}
                         className="w-8 h-8 rounded-full bg-black/50 hover:bg-blue-600 flex items-center justify-center text-white transition-all backdrop-blur-sm"
                       >
                         <FaLinkedin size={14} />
                       </button>
                       <button
-                        onClick={(e) => openSocial(member.social.github, e)}
+                        onClick={(e) => openSocial(member.social?.github, e)}
                         className="w-8 h-8 rounded-full bg-black/50 hover:bg-gray-700 flex items-center justify-center text-white transition-all backdrop-blur-sm"
                       >
                         <FaGithub size={14} />
                       </button>
                       <button
-                        onClick={(e) => openSocial(member.social.twitter, e)}
+                        onClick={(e) => openSocial(member.social?.twitter, e)}
                         className="w-8 h-8 rounded-full bg-black/50 hover:bg-blue-400 flex items-center justify-center text-white transition-all backdrop-blur-sm"
                       >
                         <FaTwitter size={14} />
@@ -138,7 +147,7 @@ export default function MembersSlider() {
                     <p className="text-purple-400 mb-3 font-semibold">{member.role}</p>
                     <p className="text-gray-300 text-sm mb-4 line-clamp-2">{member.bio}</p>
                     <div className="flex flex-wrap gap-2 justify-center mb-4">
-                      {member.expertise.map((skill, idx) => (
+                      {member.expertise?.slice(0, 3).map((skill, idx) => (
                         <span key={idx} className="px-2 py-1 rounded-full bg-white/10 text-purple-300 text-xs">
                           {skill}
                         </span>
